@@ -67,17 +67,26 @@ jobs:
         cd SdOut
         zip -r ../emuiibo.zip .
 
+    - name: Read version from Makefile
+      id: get_version
+      run: |
+        VER_MAJOR=$(grep -oP 'VER_MAJOR\s+:=\s+\K\d+' overlay/makefile)
+        VER_MINOR=$(grep -oP 'VER_MINOR\s+:=\s+\K\d+' overlay/makefile)
+        VER_MICRO=$(grep -oP 'VER_MICRO\s+:=\s+\K\d+' overlay/makefile)
+        FULL_VERSION="$VER_MAJOR.$VER_MINOR.$VER_MICRO"
+        echo "full_version=$FULL_VERSION" >> "$GITHUB_OUTPUT"
+
     - name: Release Tag
       id: reltag
       run: |
-    MAKEFILE_VERSION="${{ steps.get_version.outputs.full_version }}"
+        MAKEFILE_VERSION="${{ steps.get_version.outputs.full_version }}"
         if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF_TYPE}" = "tag" ]; then
           TAG_NAME="${GITHUB_REF_NAME}"
           REL_NAME="emuiibo ${GITHUB_REF_NAME}"
         else
           SHORT_SHA="$(git rev-parse --short HEAD)"
-      TAG_NAME="v$MAKEFILE_VERSION-$SHORT_SHA"
-      REL_NAME="emuiibo v$MAKEFILE_VERSION ($SHORT_SHA)"
+          TAG_NAME="v$MAKEFILE_VERSION-$SHORT_SHA"
+          REL_NAME="emuiibo v$MAKEFILE_VERSION ($SHORT_SHA)"
         fi
         echo "tag_name=${TAG_NAME}" >> "$GITHUB_OUTPUT"
         echo "rel_name=${REL_NAME}" >> "$GITHUB_OUTPUT"
