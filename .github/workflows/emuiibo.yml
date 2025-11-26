@@ -70,9 +70,9 @@ jobs:
     - name: Read version from Makefile
       id: get_version
       run: |
-        VER_MAJOR=$(grep -oP 'VER_MAJOR\s+:=\s+\K\d+' overlay/makefile)
-        VER_MINOR=$(grep -oP 'VER_MINOR\s+:=\s+\K\d+' overlay/makefile)
-        VER_MICRO=$(grep -oP 'VER_MICRO\s+:=\s+\K\d+' overlay/makefile)
+        VER_MAJOR=$(grep -oP 'VER_MAJOR\s+:=\s+\K\d+' overlay/Makefile)
+        VER_MINOR=$(grep -oP 'VER_MINOR\s+:=\s+\K\d+' overlay/Makefile)
+        VER_MICRO=$(grep -oP 'VER_MICRO\s+:=\s+\K\d+' overlay/Makefile)
         FULL_VERSION="$VER_MAJOR.$VER_MINOR.$VER_MICRO"
         echo "full_version=$FULL_VERSION" >> "$GITHUB_OUTPUT"
 
