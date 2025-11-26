@@ -2,7 +2,6 @@ name: Build emuiibo
 
 on:
   workflow_dispatch:
-
   push:
     tags:
       - '*'
@@ -13,7 +12,9 @@ jobs:
     container: devkitpro/devkita64:latest
     permissions:
       contents: write
-
+      releases: write
+      packages: write
+      repository-projects: write
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -90,5 +91,4 @@ jobs:
         files: emuiibo.zip
         generate_release_notes: true
         prerelease: ${{ github.event_name == 'workflow_dispatch' }}
-      env:
-        TOKEN: ${{ secrets.GH_PAT }}
+        token: ${{ secrets.GH_PAT }}
