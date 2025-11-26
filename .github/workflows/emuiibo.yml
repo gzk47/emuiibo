@@ -70,13 +70,14 @@ jobs:
     - name: Release Tag
       id: reltag
       run: |
+    MAKEFILE_VERSION="${{ steps.get_version.outputs.full_version }}"
         if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF_TYPE}" = "tag" ]; then
           TAG_NAME="${GITHUB_REF_NAME}"
           REL_NAME="emuiibo ${GITHUB_REF_NAME}"
         else
           SHORT_SHA="$(git rev-parse --short HEAD)"
-          TAG_NAME="${SHORT_SHA}"
-          REL_NAME="emuiibo ${SHORT_SHA}"
+      TAG_NAME="v$MAKEFILE_VERSION-$SHORT_SHA"
+      REL_NAME="emuiibo v$MAKEFILE_VERSION ($SHORT_SHA)"
         fi
         echo "tag_name=${TAG_NAME}" >> "$GITHUB_OUTPUT"
         echo "rel_name=${REL_NAME}" >> "$GITHUB_OUTPUT"
