@@ -570,7 +570,10 @@ class AmiiboGui : public tsl::Gui {
             this->random_uuid_toggle_item = new ui::elm::SmallToggleListItem("RandomUuid"_tr + " " + GetActionKeyGlyph(ActionKeyDisableRandomUuid) + " " + GetActionKeyGlyph(ActionKeyEnableRandomUuid), false, "On"_tr, "Off"_tr);
             this->random_uuid_toggle_item->setClickListener([&](u64 keys) {
                 if(keys & ActionKeyActivateItem) {
-                    ToggleEmulationStatus();
+                    // Toggle random UUID setting instead of the entire emulation status
+                    bool new_state = !g_ActiveVirtualAmiiboData.uuid_info.use_random_uuid;
+                    g_ActiveVirtualAmiiboData.uuid_info.use_random_uuid = new_state;
+                    emu::SetActiveVirtualAmiiboUuidInfo(g_ActiveVirtualAmiiboData.uuid_info);
                     return true;
                 }
                 else {
