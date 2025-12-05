@@ -23,7 +23,6 @@ jobs:
       run: |
         sudo -n apt-get update
         sudo -n apt-get upgrade -y git build-essential zip
-
     - name: Prepare Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -37,15 +36,18 @@ jobs:
     - name: Prepare cargo-nx
       run: cargo install cargo-nx --git https://github.com/aarch64-switch-rs/cargo-nx
 
+    - name: Checkout nx crate source
+      run: |
+        mkdir -p /__w/emuiibo/aarch64-switch-rs/
+        git clone --recurse-submodules https://github.com/aarch64-switch-rs/nx.git /__w/emuiibo/aarch64-switch-rs/nx
+
     - name: Checkout latest libnx commit
       run: |
         git clone --recurse-submodules https://github.com/switchbrew/libnx.git
-
     - name: Build and install libnx
       run: |
         cd libnx
         make install -j$(nproc)
-
     - name: Build emuiibo and overlay (.nsp + .ovl)
       run: |
         make -C overlay
@@ -58,7 +60,6 @@ jobs:
       run: |
         cd SdOut
         zip -r ../emuiibo.zip .
-
     - name: Read version from Makefile
       id: get_version
       run: |
@@ -67,7 +68,6 @@ jobs:
         VER_MICRO=$(grep -oP 'VER_MICRO\s+:=\s+\K\d+' overlay/Makefile)
         FULL_VERSION="$VER_MAJOR.$VER_MINOR.$VER_MICRO"
         echo "full_version=$FULL_VERSION" >> "$GITHUB_OUTPUT"
-
     - name: Generate Release Tag
       id: reltag
       run: |
@@ -77,7 +77,6 @@ jobs:
         REL_NAME="emuiibo v$MAKEFILE_VERSION ($SHORT_SHA)"
         echo "tag_name=${TAG_NAME}" >> "$GITHUB_OUTPUT"
         echo "rel_name=${REL_NAME}" >> "$GITHUB_OUTPUT"
-
     - name: Upload Release Assets
       uses: softprops/action-gh-release@v1
       with:
