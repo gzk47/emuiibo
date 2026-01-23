@@ -50,11 +50,11 @@
         },
         {
             "key": "EmuiiboServiceError",
-            "value": "An error ocurred accessing emuiibo:"
+            "value": "访问emuiibo时发生错误:"
         },
         {
             "key": "OtherServiceError",
-            "value": "An error ocurred accessing services:"
+            "value": "访问服务时发生错误:"
         },
         {
             "key": "Help",
