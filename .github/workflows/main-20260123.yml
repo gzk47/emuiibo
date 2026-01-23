@@ -32,7 +32,7 @@ jobs:
         cache: maven
 
     - name: Prepare Rust
-      uses: actions/rs/toolchain@v1
+      uses: actions-rs/toolchain@v1
       with:
         profile: minimal
         toolchain: nightly-2025-10-01
