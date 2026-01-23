@@ -1,4 +1,4 @@
-name: Build emuiibo+emuiigen - 20251223
+name: Build emuiibo+emuiigen - 20260123
 
 on:
   workflow_dispatch:
@@ -25,21 +25,19 @@ jobs:
         sudo -n apt-get upgrade -y git build-essential zip openjdk-17-jdk maven
 
     - name: Setup Java 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
 
     - name: Prepare Rust
-      uses: actions-rs/toolchain@v1
+      uses: actions/rs/toolchain@v1
       with:
         profile: minimal
-        toolchain: nightly
+        toolchain: nightly-2025-10-01
         override: true
-
-    - name: Prepare rust-src
-      run: rustup component add rust-src
+        components: rust-src
 
     - name: Prepare cargo-nx
       run: cargo install cargo-nx --git https://github.com/aarch64-switch-rs/cargo-nx
