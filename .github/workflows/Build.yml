@@ -11,9 +11,9 @@ jobs:
       contents: write
 
     steps:
-      # - name: Add safe.directory Update libnx
-        # run: |
-          # git config --global --add safe.directory "*"
+      - name: Add safe.directory Update libnx
+        run: |
+          git config --global --add safe.directory "*"
           # git clone --recurse-submodules https://github.com/switchbrew/libnx.git
           # cd libnx
           # make -j$(nproc) install
@@ -44,7 +44,7 @@ jobs:
 
       - name: Add safe.directory Update libnx
         run: |
-          git config --global --add safe.directory "*"
+          # git config --global --add safe.directory "*"
           git clone --recurse-submodules https://github.com/switchbrew/libnx.git
           cd libnx
           make -j$(nproc) install
