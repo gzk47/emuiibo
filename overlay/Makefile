@@ -42,6 +42,7 @@ VER_MAJOR	:=	1
 VER_MINOR	:=	1
 VER_MICRO	:=	3
 APP_VERSION :=	$(VER_MAJOR).$(VER_MINOR).$(VER_MICRO)
+APP_VERSION :=	v$(APP_VERSION)-$(shell git rev-parse --short=7 HEAD)
 TARGET		:=	$(APP_TITLE)
 BUILD		:=	build
 SOURCES		:=	source source/emu source/tr source/ui

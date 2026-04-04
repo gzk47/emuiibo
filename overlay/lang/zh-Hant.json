@@ -50,11 +50,11 @@
         },
         {
             "key": "EmuiiboServiceError",
-            "value": "An error ocurred accessing emuiibo:"
+            "value": "存取emuiibo時發生錯誤:"
         },
         {
             "key": "OtherServiceError",
-            "value": "An error ocurred accessing services:"
+            "value": "存取服務時發生錯誤:"
         },
         {
             "key": "Help",
@@ -155,6 +155,14 @@
         {
             "key": "RandomUuid",
             "value": "隨機UUID"
+        },
+        {
+            "key": "Back",
+            "value": "返回"
+        },
+        {
+            "key": "OK",
+            "value": "確定"
         }
     ]
 }
